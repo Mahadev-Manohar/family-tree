@@ -66,3 +66,38 @@ export async function PUT(
     );
   }
 }
+
+export async function DELETE(
+  request: Request,
+  { params }: Props
+) {
+  try {
+    const { id } = await params;
+
+    await prisma.person.update({
+      where: {
+        id,
+      },
+
+      data: {
+        isDeleted: true,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        error:
+          "Failed to delete person",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+}

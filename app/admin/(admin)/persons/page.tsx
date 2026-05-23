@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db/prisma";
 import Link from "next/link";
+import DeletePersonButton from "@/components/admin/DeletePersonButton";
 
 export default async function PersonsPage() {
   const people =
@@ -120,16 +121,10 @@ export default async function PersonsPage() {
                     Edit
                   </Link>
 
-                  <button
-                    className="
-                      bg-red-600
-                      px-3
-                      py-1
-                      rounded
-                    "
-                  >
-                    Delete
-                  </button>
+                  <DeletePersonButton
+                    id={person.id}
+                  />
+                  
                 </td>
               </tr>
             ))}
