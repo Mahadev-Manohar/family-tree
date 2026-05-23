@@ -63,26 +63,34 @@ export default function PersonForm({
     e.preventDefault();
 
     try {
+
+        const isEditing =
+          !!initialData?.id;
+
         const response = await fetch(
-        "/api/admin/persons",
-        {
-            method: "POST",
+          isEditing
+            ? `/api/admin/persons/${initialData.id}`
+            : "/api/admin/persons",
+          {
+            method: isEditing
+              ? "PUT"
+              : "POST",
 
             headers: {
-            "Content-Type":
+              "Content-Type":
                 "application/json",
             },
 
             body: JSON.stringify({
-            fullName,
-            gender,
-            birthDisplay,
-            deathDisplay,
-            bio,
-            isAlive,
-            isRootAncestor,
+              fullName,
+              gender,
+              birthDisplay,
+              deathDisplay,
+              bio,
+              isAlive,
+              isRootAncestor,
             }),
-        }
+          }
         );
 
         if (!response.ok) {
