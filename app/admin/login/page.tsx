@@ -14,10 +14,6 @@ export default function LoginPage() {
 
   const [loading, setLoading] = useState(false);
 
-  console.log("LoginPage rendered");
-  console.log("Email:", email);
-  console.log("Password:", password);
-
   async function handleLogin(
     e: React.FormEvent
   ) {

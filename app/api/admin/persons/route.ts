@@ -1,0 +1,47 @@
+import { prisma } from "@/lib/db/prisma";
+import { NextResponse } from "next/server";
+
+export async function POST(
+  request: Request
+) {
+  try {
+    const body = await request.json();
+
+    const person =
+      await prisma.person.create({
+        data: {
+          fullName: body.fullName,
+          gender: body.gender,
+
+          birthDisplay:
+            body.birthDisplay || null,
+
+          deathDisplay:
+            body.deathDisplay || null,
+
+          bio: body.bio || null,
+
+          isAlive: body.isAlive,
+
+          isRootAncestor:
+            body.isRootAncestor,
+        },
+      });
+
+    return NextResponse.json(
+      person
+    );
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        error:
+          "Failed to create person",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+}
