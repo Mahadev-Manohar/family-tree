@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model Person {
+  id String @id @default(uuid())
+
+  fullName String
+  gender   Gender
+
+  dateOfBirth  DateTime?
+  birthDisplay String?
+
+  dateOfDeath  DateTime?
+  deathDisplay String?
+
+  bio             String?
+  profileImageUrl String?
+
+  fatherId String?
+  motherId String?
+  spouseId String?
+
+  father Person? @relation("FatherRelation", fields: [fatherId], references: [id])
+  mother Person? @relation("MotherRelation", fields: [motherId], references: [id])
+  spouse Person? @relation("SpouseRelation", fields: [spouseId], references: [id])
+
+  childrenFromFather Person[] @relation("FatherRelation")
+  childrenFromMother Person[] @relation("MotherRelation")
+
+  spouseOf Person[] @relation("SpouseRelation")
+
+  isAlive        Boolean @default(true)
+  isDeleted      Boolean @default(false)
+  isRootAncestor Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([fatherId])
+  @@index([motherId])
+  @@index([spouseId])
+  @@index([fullName])
+}
