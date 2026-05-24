@@ -165,3 +165,95 @@ export async function DELETE(
     );
   }
 }
+
+export async function GET(
+  request: Request,
+  { params }: Props
+) {
+  try {
+    const { id } =
+      await params;
+
+    const person =
+      await prisma.person.findUnique({
+        where: {
+          id,
+        },
+
+        include: {
+          spouse: {
+            select: {
+              id: true,
+              fullName: true,
+              gender: true,
+              birthDisplay: true,
+              isAlive: true,
+            },
+          },
+
+          childrenFromFather:
+            {
+              select: {
+                id: true,
+                fullName: true,
+              },
+            },
+
+          childrenFromMother:
+            {
+              select: {
+                id: true,
+                fullName: true,
+              },
+            },
+        },
+      });
+
+    if (!person) {
+      return NextResponse.json(
+        {
+          error:
+            "Person not found",
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+
+    const children = [
+      ...person.childrenFromFather,
+      ...person.childrenFromMother,
+    ];
+
+    return NextResponse.json({
+      id: person.id,
+      fullName:
+        person.fullName,
+      gender:
+        person.gender,
+      birthDisplay:
+        person.birthDisplay,
+      deathDisplay:
+        person.deathDisplay,
+      bio: person.bio,
+      isAlive:
+        person.isAlive,
+      spouse:
+        person.spouse,
+      children,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      {
+        error:
+          "Failed to fetch person",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+}

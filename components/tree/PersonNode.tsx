@@ -4,18 +4,30 @@ import {
 } from "reactflow";
 
 type Props = {
+  id: string;
+
   data: {
     fullName: string;
     gender?: string;
     isAlive?: boolean;
+
     birthDisplay?:
       | string
       | null;
 
+    onPersonClick?: (
+      id: string
+    ) => void;
+
     spouse?: {
+      id: string;
+
       fullName: string;
+
       gender?: string;
+
       isAlive?: boolean;
+
       birthDisplay?:
         | string
         | null;
@@ -47,6 +59,7 @@ function statusColor(
 }
 
 export default function PersonNode({
+  id,
   data,
 }: Props) {
   return (
@@ -75,7 +88,23 @@ export default function PersonNode({
 
       <div className="flex items-stretch">
         {/* PERSON */}
-        <div className="flex-1">
+        <div
+          className="
+            flex-1
+            cursor-pointer
+            rounded-xl
+            p-2
+            transition
+            hover:bg-zinc-900
+          "
+          onClick={(e) => {
+            e.stopPropagation();
+
+            data.onPersonClick?.(
+              id
+            );
+          }}
+        >
           <div className="flex items-center gap-2 mb-3">
             <div
               className={`
@@ -147,7 +176,23 @@ export default function PersonNode({
             />
 
             {/* SPOUSE */}
-            <div className="flex-1">
+            <div
+              className="
+                flex-1
+                cursor-pointer
+                rounded-xl
+                p-2
+                transition
+                hover:bg-zinc-900
+              "
+              onClick={(e) => {
+                e.stopPropagation();
+
+                data.onPersonClick?.(
+                  data.spouse!.id
+                );
+              }}
+            >
               <div className="flex items-center gap-2 mb-3">
                 <div
                   className={`
