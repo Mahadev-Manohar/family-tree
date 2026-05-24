@@ -1,9 +1,22 @@
 "use client";
 
+import { PersonOption } from "@/types/person";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import dynamic from "next/dynamic";
+
+const Select = dynamic(
+  () => import("react-select"),
+  {
+    ssr: false,
+  }
+);
+
 type PersonFormProps = {
+  people?: PersonOption[];
+
   initialData?: {
     id?: string;
     fullName: string;
@@ -13,11 +26,16 @@ type PersonFormProps = {
     bio?: string | null;
     isAlive: boolean;
     isRootAncestor: boolean;
+
+    fatherId?: string | null;
+    motherId?: string | null;
+    spouseId?: string | null;
   };
 };
 
 export default function PersonForm({
   initialData,
+  people = [],
 }: PersonFormProps) {
 
   const router = useRouter();
@@ -57,6 +75,21 @@ export default function PersonForm({
       initialData?.isRootAncestor || false
     );
 
+  const [fatherId, setFatherId] =
+    useState<string | null>(
+      initialData?.fatherId || null
+    );
+
+  const [motherId, setMotherId] =
+    useState<string | null>(
+      initialData?.motherId || null
+    );
+
+  const [spouseId, setSpouseId] =
+    useState<string | null>(
+      initialData?.spouseId || null
+    );
+
   async function handleSubmit(
     e: React.FormEvent
   ) {
@@ -89,6 +122,9 @@ export default function PersonForm({
               bio,
               isAlive,
               isRootAncestor,
+              fatherId,
+              motherId,
+              spouseId,
             }),
           }
         );
@@ -238,6 +274,77 @@ export default function PersonForm({
             bg-zinc-900
           "
         />
+      </div>
+
+      <div className="space-y-5">
+        <div>
+          <label className="block mb-2">
+            Father
+          </label>
+
+          <Select
+            options={people}
+            value={
+              people.find(
+                (p) => p.value === fatherId
+              ) || null
+            }
+            onChange={(option) =>
+              setFatherId(
+                (option as PersonOption | null)
+                  ?.value || null
+              )
+            }
+            isClearable
+            placeholder="Search father..."
+          />
+        </div>
+
+        <div>
+          <label className="block mb-2">
+            Mother
+          </label>
+
+          <Select
+            options={people}
+            value={
+              people.find(
+                (p) => p.value === motherId
+              ) || null
+            }
+            onChange={(option) =>
+              setMotherId(
+                (option as PersonOption | null)
+                  ?.value || null
+              )
+            }
+            isClearable
+            placeholder="Search mother..."
+          />
+        </div>
+
+        <div>
+          <label className="block mb-2">
+            Spouse
+          </label>
+
+          <Select
+            options={people}
+            value={
+              people.find(
+                (p) => p.value === spouseId
+              ) || null
+            }
+            onChange={(option) =>
+              setSpouseId(
+                (option as PersonOption | null)
+                  ?.value || null
+              )
+            }
+            isClearable
+            placeholder="Search spouse..."
+          />
+        </div>
       </div>
 
       <div className="flex gap-6">
