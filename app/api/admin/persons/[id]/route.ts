@@ -12,10 +12,48 @@ export async function PUT(
   { params }: Props
 ) {
   try {
-    const { id } = await params;
+    const { id } =
+      await params;
 
     const body =
       await request.json();
+
+    const existingPerson =
+      await prisma.person.findUnique({
+        where: {
+          id,
+        },
+      });
+
+    if (!existingPerson) {
+      return NextResponse.json(
+        {
+          error:
+            "Person not found",
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+
+    // clear old spouse
+    if (
+      existingPerson.spouseId &&
+      existingPerson.spouseId !==
+        body.spouseId
+    ) {
+      await prisma.person.update({
+        where: {
+          id:
+            existingPerson.spouseId,
+        },
+
+        data: {
+          spouseId: null,
+        },
+      });
+    }
 
     const updatedPerson =
       await prisma.person.update({
@@ -48,15 +86,32 @@ export async function PUT(
             body.isRootAncestor,
 
           fatherId:
-            body.fatherId || null,
+            body.fatherId ||
+            null,
 
           motherId:
-            body.motherId || null,
+            body.motherId ||
+            null,
 
           spouseId:
-            body.spouseId || null,
+            body.spouseId ||
+            null,
         },
       });
+
+    // sync new spouse
+    if (body.spouseId) {
+      await prisma.person.update({
+        where: {
+          id:
+            body.spouseId,
+        },
+
+        data: {
+          spouseId: id,
+        },
+      });
+    }
 
     return NextResponse.json(
       updatedPerson

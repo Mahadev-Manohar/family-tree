@@ -5,19 +5,25 @@ export async function POST(
   request: Request
 ) {
   try {
-    const body = await request.json();
+    const body =
+      await request.json();
 
     const person =
       await prisma.person.create({
         data: {
-          fullName: body.fullName,
-          gender: body.gender,
+          fullName:
+            body.fullName,
+
+          gender:
+            body.gender,
 
           birthDisplay:
-            body.birthDisplay || null,
+            body.birthDisplay ||
+            null,
 
           deathDisplay:
-            body.deathDisplay || null,
+            body.deathDisplay ||
+            null,
 
           bio:
             body.bio || null,
@@ -29,15 +35,31 @@ export async function POST(
             body.isRootAncestor,
 
           fatherId:
-            body.fatherId || null,
+            body.fatherId ||
+            null,
 
           motherId:
-            body.motherId || null,
+            body.motherId ||
+            null,
 
           spouseId:
-            body.spouseId || null,
+            body.spouseId ||
+            null,
         },
       });
+
+    // auto spouse sync
+    if (body.spouseId) {
+      await prisma.person.update({
+        where: {
+          id: body.spouseId,
+        },
+
+        data: {
+          spouseId: person.id,
+        },
+      });
+    }
 
     return NextResponse.json(
       person
