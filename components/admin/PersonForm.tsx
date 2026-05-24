@@ -282,7 +282,7 @@ export default function PersonForm({
             Father
           </label>
 
-          <Select
+          <Select className="text-black"
             options={people}
             value={
               people.find(
@@ -305,7 +305,7 @@ export default function PersonForm({
             Mother
           </label>
 
-          <Select
+          <Select className="text-black"
             options={people}
             value={
               people.find(
@@ -328,7 +328,7 @@ export default function PersonForm({
             Spouse
           </label>
 
-          <Select
+          <Select className="text-black"
             options={people}
             value={
               people.find(
