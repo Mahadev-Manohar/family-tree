@@ -13,12 +13,22 @@ export type TreeNode = {
 
   isAlive: boolean;
 
-  profileImageUrl?: string | null;
+  profileImageUrl?:
+    | string
+    | null;
 
   spouse?: {
     id: string;
+
     fullName: string;
-    birthDisplay?: string | null;
+
+    gender?: string;
+
+    isAlive?: boolean;
+
+    birthDisplay?:
+      | string
+      | null;
   } | null;
 
   children: TreeNode[];

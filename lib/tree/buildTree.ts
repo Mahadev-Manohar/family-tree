@@ -71,11 +71,19 @@ export function buildTree(
       spouse: spouse
         ? {
             id: spouse.id,
+
             fullName:
-              spouse.fullName,
+                spouse.fullName,
+
             birthDisplay:
-              spouse.birthDisplay,
-          }
+                spouse.birthDisplay,
+
+            gender:
+                spouse.gender,
+
+            isAlive:
+                spouse.isAlive,
+            }
         : null,
 
       children:
