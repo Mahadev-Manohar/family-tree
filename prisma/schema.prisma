@@ -35,16 +35,16 @@ model Person {
 
   fatherId String?
   motherId String?
-  spouseId String?
+  spouseId String? @unique
 
-  father Person? @relation("FatherRelation", fields: [fatherId], references: [id])
-  mother Person? @relation("MotherRelation", fields: [motherId], references: [id])
-  spouse Person? @relation("SpouseRelation", fields: [spouseId], references: [id])
+  father Person? @relation("FatherRelation", fields: [fatherId], references: [id], onDelete: SetNull)
+  mother Person? @relation("MotherRelation", fields: [motherId], references: [id], onDelete: SetNull)
+
+  spouse Person? @relation("SpouseRelation", fields: [spouseId], references: [id], onDelete: SetNull)
+  spouseOf Person? @relation("SpouseRelation")
 
   childrenFromFather Person[] @relation("FatherRelation")
   childrenFromMother Person[] @relation("MotherRelation")
-
-  spouseOf Person[] @relation("SpouseRelation")
 
   isAlive        Boolean @default(true)
   isDeleted      Boolean @default(false)
@@ -55,6 +55,5 @@ model Person {
 
   @@index([fatherId])
   @@index([motherId])
-  @@index([spouseId])
   @@index([fullName])
 }

@@ -46,6 +46,15 @@ export async function PUT(
 
           isRootAncestor:
             body.isRootAncestor,
+
+          fatherId:
+            body.fatherId || null,
+
+          motherId:
+            body.motherId || null,
+
+          spouseId:
+            body.spouseId || null,
         },
       });
 

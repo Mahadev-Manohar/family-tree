@@ -19,12 +19,23 @@ export async function POST(
           deathDisplay:
             body.deathDisplay || null,
 
-          bio: body.bio || null,
+          bio:
+            body.bio || null,
 
-          isAlive: body.isAlive,
+          isAlive:
+            body.isAlive,
 
           isRootAncestor:
             body.isRootAncestor,
+
+          fatherId:
+            body.fatherId || null,
+
+          motherId:
+            body.motherId || null,
+
+          spouseId:
+            body.spouseId || null,
         },
       });
 

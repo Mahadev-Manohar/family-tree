@@ -24,6 +24,30 @@ export default async function EditPersonPage({
     notFound();
   }
 
+  const people =
+    await prisma.person.findMany({
+      where: {
+        isDeleted: false,
+        id: {
+          not: id,
+        },
+      },
+
+      orderBy: {
+        fullName: "asc",
+      },
+    });
+
+  const personOptions =
+    people.map((person) => ({
+      value: person.id,
+
+      label:
+        person.birthDisplay
+          ? `${person.fullName} (${person.birthDisplay})`
+          : person.fullName,
+    }));
+
   return (
     <div>
       <h1 className="text-3xl font-bold mb-8">
@@ -32,6 +56,7 @@ export default async function EditPersonPage({
 
       <PersonForm
         initialData={person}
+        people={personOptions}
       />
     </div>
   );
