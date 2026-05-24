@@ -20,8 +20,8 @@ dagreGraph.setDefaultEdgeLabel(
   () => ({})
 );
 
-const NODE_WIDTH = 320;
-const NODE_HEIGHT = 110;
+const NODE_WIDTH = 380;
+const NODE_HEIGHT = 170;
 
 export function treeToFlow(
   tree: TreeNode

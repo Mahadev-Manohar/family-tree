@@ -6,22 +6,16 @@ import {
 type Props = {
   data: {
     fullName: string;
-
     gender?: string;
-
     isAlive?: boolean;
-
     birthDisplay?:
       | string
       | null;
 
     spouse?: {
       fullName: string;
-
       gender?: string;
-
       isAlive?: boolean;
-
       birthDisplay?:
         | string
         | null;
@@ -29,19 +23,27 @@ type Props = {
   };
 };
 
-function genderColor(
+function genderDot(
   gender?: string
 ) {
   switch (gender) {
     case "MALE":
-      return "bg-blue-500";
+      return "bg-sky-500";
 
     case "FEMALE":
-      return "bg-pink-500";
+      return "bg-rose-500";
 
     default:
       return "bg-zinc-500";
   }
+}
+
+function statusColor(
+  isAlive?: boolean
+) {
+  return isAlive
+    ? "text-emerald-400"
+    : "text-zinc-500";
 }
 
 export default function PersonNode({
@@ -51,53 +53,36 @@ export default function PersonNode({
     <div
       className="
         relative
-        min-w-[320px]
-        rounded-3xl
+        min-w-[380px]
+        rounded-2xl
         border
         border-zinc-800
         bg-zinc-950
-        p-5
-        shadow-2xl
-        transition-all
-        duration-300
-        hover:scale-[1.02]
+        px-5
+        py-4
+        shadow-sm
+        transition
         hover:border-zinc-700
       "
     >
       <Handle
         type="target"
-        position={
-          Position.Top
-        }
+        position={Position.Top}
         style={{
           opacity: 0,
         }}
       />
 
-      <div
-        className="
-          flex
-          items-start
-          justify-between
-          gap-6
-        "
-      >
-        {/* Main person */}
+      <div className="flex items-stretch">
+        {/* PERSON */}
         <div className="flex-1">
-          <div
-            className="
-              flex
-              items-center
-              gap-2
-              mb-2
-            "
-          >
+          <div className="flex items-center gap-2 mb-3">
             <div
               className={`
-                w-3
-                h-3
+                w-2.5
+                h-2.5
                 rounded-full
-                ${genderColor(
+                ${genderDot(
                   data.gender
                 )}
               `}
@@ -106,68 +91,70 @@ export default function PersonNode({
             <h3
               className="
                 text-white
-                text-xl
-                font-bold
+                font-semibold
+                text-lg
+                leading-none
               "
             >
               {data.fullName}
             </h3>
           </div>
 
-          <p
-            className="
-              text-zinc-400
-              text-sm
-            "
-          >
-            Born:
-            {" "}
-            {data.birthDisplay ??
-              "Unknown"}
-          </p>
+          <div className="space-y-2">
+            <div>
+              <p
+                className="
+                  text-xs
+                  uppercase
+                  tracking-wide
+                  text-zinc-500
+                "
+              >
+                Birth
+              </p>
 
-          <p
-            className={`
-              text-sm mt-1
-              ${
-                data.isAlive
-                  ? "text-emerald-400"
-                  : "text-red-400"
-              }
-            `}
-          >
-            {data.isAlive
-              ? "Alive"
-              : "Deceased"}
-          </p>
+              <p className="text-zinc-200 text-sm">
+                {data.birthDisplay ??
+                  "Unknown"}
+              </p>
+            </div>
+
+            <p
+              className={`
+                text-sm
+                font-medium
+                ${statusColor(
+                  data.isAlive
+                )}
+              `}
+            >
+              {data.isAlive
+                ? "Living"
+                : "Deceased"}
+            </p>
+          </div>
         </div>
 
-        {/* spouse */}
+        {/* DIVIDER */}
         {data.spouse && (
           <>
             <div
               className="
+                mx-5
                 w-px
-                self-stretch
                 bg-zinc-800
               "
             />
 
+            {/* SPOUSE */}
             <div className="flex-1">
-              <div
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  mb-2
-                "
-              >
+              <div className="flex items-center gap-2 mb-3">
                 <div
                   className={`
-                    w-3
-                    h-3
+                    w-2.5
+                    h-2.5
                     rounded-full
-                    ${genderColor(
+                    ${genderDot(
                       data.spouse
                         .gender
                     )}
@@ -176,9 +163,10 @@ export default function PersonNode({
 
                 <h3
                   className="
-                    text-sky-400
-                    text-xl
-                    font-bold
+                    text-white
+                    font-semibold
+                    text-lg
+                    leading-none
                   "
                 >
                   {
@@ -188,35 +176,42 @@ export default function PersonNode({
                 </h3>
               </div>
 
-              <p
-                className="
-                  text-zinc-400
-                  text-sm
-                "
-              >
-                Born:
-                {" "}
-                {data.spouse
-                  .birthDisplay ??
-                  "Unknown"}
-              </p>
+              <div className="space-y-2">
+                <div>
+                  <p
+                    className="
+                      text-xs
+                      uppercase
+                      tracking-wide
+                      text-zinc-500
+                    "
+                  >
+                    Birth
+                  </p>
 
-              <p
-                className={`
-                  text-sm mt-1
-                  ${
-                    data.spouse
-                      .isAlive
-                      ? "text-emerald-400"
-                      : "text-red-400"
-                  }
-                `}
-              >
-                {data.spouse
-                  .isAlive
-                  ? "Alive"
-                  : "Deceased"}
-              </p>
+                  <p className="text-zinc-200 text-sm">
+                    {data.spouse
+                      .birthDisplay ??
+                      "Unknown"}
+                  </p>
+                </div>
+
+                <p
+                  className={`
+                    text-sm
+                    font-medium
+                    ${statusColor(
+                      data.spouse
+                        .isAlive
+                    )}
+                  `}
+                >
+                  {data.spouse
+                    .isAlive
+                    ? "Living"
+                    : "Deceased"}
+                </p>
+              </div>
             </div>
           </>
         )}
