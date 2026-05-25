@@ -93,7 +93,7 @@ export default function FamilyTreeFlow({
           fitView
 
           fitViewOptions={{
-            padding: 0.6,
+            padding: 0.35,
           }}
           minZoom={0.3}
           maxZoom={2}
