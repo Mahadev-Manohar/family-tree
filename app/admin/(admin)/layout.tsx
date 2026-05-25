@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import LogoutButton
   from "@/components/admin/LogoutButton";
 
@@ -8,31 +9,63 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex">
+    <div
+      className="
+        min-h-screen
+        bg-black
+        text-white
+        flex
+      "
+    >
+      {/* SIDEBAR */}
       <aside
         className="
-          w-64
-          bg-zinc-950
+          w-80
           border-r
           border-zinc-800
-          p-6
+          bg-[#0a0a0a]
           flex
           flex-col
+          px-6
+          py-8
         "
       >
         <div>
-          <h2 className="text-2xl font-bold mb-8">
+          <h1
+            className="
+              text-4xl
+              font-bold
+              mb-1
+            "
+          >
             Admin Panel
-          </h2>
+          </h1>
+
+          <p
+            className="
+              text-zinc-500
+              text-sm
+              mb-10
+            "
+          >
+            Family tree management
+          </p>
 
           <nav className="space-y-4">
             <Link
               href="/admin/dashboard"
               className="
                 block
-                p-3
-                rounded-lg
+                rounded-2xl
+                border
+                border-zinc-800
+                bg-zinc-900
+                px-6
+                py-4
+                transition
+                hover:border-zinc-700
                 hover:bg-zinc-800
+                text-center
               "
             >
               Dashboard
@@ -42,9 +75,16 @@ export default function AdminLayout({
               href="/admin/persons"
               className="
                 block
-                p-3
-                rounded-lg
+                rounded-2xl
+                border
+                border-zinc-800
+                bg-zinc-900
+                px-6
+                py-4
+                transition
+                hover:border-zinc-700
                 hover:bg-zinc-800
+                text-center
               "
             >
               People
@@ -54,9 +94,16 @@ export default function AdminLayout({
               href="/admin/persons/create"
               className="
                 block
-                p-3
-                rounded-lg
+                rounded-2xl
+                border
+                border-zinc-800
+                bg-zinc-900
+                px-6
+                py-4
+                transition
+                hover:border-zinc-700
                 hover:bg-zinc-800
+                text-center
               "
             >
               Add Person
@@ -64,12 +111,21 @@ export default function AdminLayout({
           </nav>
         </div>
 
-        <div className="mt-auto pt-6">
+        <div className="mt-auto">
           <LogoutButton />
         </div>
       </aside>
 
-      <main className="flex-1 p-8">
+      {/* CONTENT */}
+      <main
+        className="
+          flex-1
+          bg-black
+          px-14
+          py-12
+          overflow-y-auto
+        "
+      >
         {children}
       </main>
     </div>
