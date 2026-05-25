@@ -21,7 +21,7 @@ dagreGraph.setDefaultEdgeLabel(
 );
 
 const NODE_WIDTH = 380;
-const NODE_HEIGHT = 170;
+const NODE_HEIGHT = 150;
 
 export function treeToFlow(
   tree: TreeNode
@@ -112,10 +112,15 @@ export function treeToFlow(
 
   dagreGraph.setGraph({
     rankdir: "TB",
-    ranksep: 220,
-    nodesep: 180,
-    marginx: 40,
-    marginy: 40,
+
+    // vertical gap
+    ranksep: 150,
+
+    // horizontal gap
+    nodesep: 90,
+
+    marginx: 30,
+    marginy: 30,
   });
 
   dagre.layout(
