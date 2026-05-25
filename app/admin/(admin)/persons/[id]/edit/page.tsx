@@ -65,9 +65,7 @@ export default async function EditPersonPage({
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">
-        Edit Person
-      </h1>
+      
 
       <PersonForm
         initialData={person}

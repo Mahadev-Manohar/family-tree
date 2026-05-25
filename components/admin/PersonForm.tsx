@@ -210,288 +210,492 @@ export default function PersonForm({
     }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-5 max-w-2xl"
+    <div
+      className="
+        max-w-5xl
+        rounded-[2rem]
+        border
+        border-zinc-800
+        bg-zinc-950
+        p-8
+        shadow-2xl
+      "
     >
-      <div>
-        <label className="block mb-2">
-          Full Name
-        </label>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-10"
+      >
+        {/* HEADER */}
+        <div>
+          <h2
+            className="
+              text-3xl
+              font-bold
+              text-white
+            "
+          >
+            {initialData?.id
+              ? "Edit Person"
+              : "Add Person"}
+          </h2>
 
-        <input
-          type="text"
-          value={fullName}
-          onChange={(e) =>
-            setFullName(e.target.value)
-          }
+          <p
+            className="
+              mt-2
+              text-zinc-400
+            "
+          >
+            Manage family member
+            information
+          </p>
+        </div>
+
+        {/* BASIC INFO */}
+        <section className="space-y-5">
+          <h3
+            className="
+              text-lg
+              font-semibold
+              text-white
+            "
+          >
+            Basic Information
+          </h3>
+
+          <div className="grid grid-cols-2 gap-5">
+            <div>
+              <label
+                className="
+                  mb-2
+                  block
+                  text-sm
+                  text-zinc-400
+                "
+              >
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) =>
+                  setFullName(
+                    e.target.value
+                  )
+                }
+                className="
+                  w-full
+                  rounded-2xl
+                  border
+                  border-zinc-700
+                  bg-zinc-900
+                  p-4
+                  outline-none
+                  transition
+                  focus:border-zinc-500
+                "
+              />
+            </div>
+
+            <div>
+              <label
+                className="
+                  mb-2
+                  block
+                  text-sm
+                  text-zinc-400
+                "
+              >
+                Gender
+              </label>
+
+              <select
+                value={gender}
+                onChange={(e) =>
+                  setGender(
+                    e.target.value
+                  )
+                }
+                className="
+                  w-full
+                  rounded-2xl
+                  border
+                  border-zinc-700
+                  bg-zinc-900
+                  p-4
+                  outline-none
+                "
+              >
+                <option value="MALE">
+                  Male
+                </option>
+
+                <option value="FEMALE">
+                  Female
+                </option>
+
+                <option value="OTHER">
+                  Other
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                className="
+                  mb-2
+                  block
+                  text-sm
+                  text-zinc-400
+                "
+              >
+                Birth Year / Date
+              </label>
+
+              <input
+                type="text"
+                placeholder="1940 or 1940-03"
+                value={birthDisplay}
+                onChange={(e) =>
+                  setBirthDisplay(
+                    e.target.value
+                  )
+                }
+                className="
+                  w-full
+                  rounded-2xl
+                  border
+                  border-zinc-700
+                  bg-zinc-900
+                  p-4
+                  outline-none
+                "
+              />
+            </div>
+
+            <div>
+              <label
+                className="
+                  mb-2
+                  block
+                  text-sm
+                  text-zinc-400
+                "
+              >
+                Death Year / Date
+              </label>
+
+              <input
+                type="text"
+                placeholder="2015"
+                value={deathDisplay}
+                onChange={(e) =>
+                  setDeathDisplay(
+                    e.target.value
+                  )
+                }
+                className="
+                  w-full
+                  rounded-2xl
+                  border
+                  border-zinc-700
+                  bg-zinc-900
+                  p-4
+                  outline-none
+                "
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* BIO + IMAGE */}
+        <section className="space-y-5">
+          <h3
+            className="
+              text-lg
+              font-semibold
+              text-white
+            "
+          >
+            Biography & Media
+          </h3>
+
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <label
+                className="
+                  mb-2
+                  block
+                  text-sm
+                  text-zinc-400
+                "
+              >
+                Biography
+              </label>
+
+              <textarea
+                value={bio}
+                onChange={(e) =>
+                  setBio(
+                    e.target.value
+                  )
+                }
+                rows={8}
+                className="
+                  w-full
+                  rounded-2xl
+                  border
+                  border-zinc-700
+                  bg-zinc-900
+                  p-4
+                  outline-none
+                "
+              />
+            </div>
+
+            <div>
+              <label
+                className="
+                  mb-2
+                  block
+                  text-sm
+                  text-zinc-400
+                "
+              >
+                Profile Image
+              </label>
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file =
+                    e.target
+                      .files?.[0];
+
+                  if (file) {
+                    handleImageUpload(
+                      file
+                    );
+                  }
+                }}
+                className="
+                  w-full
+                  rounded-2xl
+                  border
+                  border-zinc-700
+                  bg-zinc-900
+                  p-4
+                "
+              />
+
+              {isUploading && (
+                <p
+                  className="
+                    mt-3
+                    text-zinc-400
+                  "
+                >
+                  Uploading image...
+                </p>
+              )}
+
+              {profileImageUrl && (
+                <img
+                  src={
+                    profileImageUrl
+                  }
+                  alt="Preview"
+                  className="
+                    mt-5
+                    h-36
+                    w-36
+                    rounded-full
+                    border
+                    border-zinc-700
+                    object-cover
+                  "
+                />
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* RELATIONSHIPS */}
+        <section className="space-y-5">
+          <h3
+            className="
+              text-lg
+              font-semibold
+              text-white
+            "
+          >
+            Family Relationships
+          </h3>
+
+          <div className="grid grid-cols-2 gap-5">
+            <div>
+              <label className="mb-2 block text-sm text-zinc-400">
+                Father
+              </label>
+
+              <Select
+                className="text-black"
+                options={people}
+                value={
+                  people.find(
+                    (p) =>
+                      p.value ===
+                      fatherId
+                  ) || null
+                }
+                onChange={(
+                  option
+                ) =>
+                  setFatherId(
+                    (
+                      option as
+                        | PersonOption
+                        | null
+                    )?.value ||
+                      null
+                  )
+                }
+                isClearable
+                placeholder="Search father..."
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm text-zinc-400">
+                Mother
+              </label>
+
+              <Select
+                className="text-black"
+                options={people}
+                value={
+                  people.find(
+                    (p) =>
+                      p.value ===
+                      motherId
+                  ) || null
+                }
+                onChange={(
+                  option
+                ) =>
+                  setMotherId(
+                    (
+                      option as
+                        | PersonOption
+                        | null
+                    )?.value ||
+                      null
+                  )
+                }
+                isClearable
+                placeholder="Search mother..."
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm text-zinc-400">
+              Spouse
+            </label>
+
+            <Select
+              className="text-black"
+              options={people}
+              value={
+                people.find(
+                  (p) =>
+                    p.value ===
+                    spouseId
+                ) || null
+              }
+              onChange={(
+                option
+              ) =>
+                setSpouseId(
+                  (
+                    option as
+                      | PersonOption
+                      | null
+                  )?.value ||
+                    null
+                )
+              }
+              isClearable
+              placeholder="Search spouse..."
+            />
+          </div>
+        </section>
+
+        {/* STATUS */}
+        <section className="space-y-5">
+          <h3
+            className="
+              text-lg
+              font-semibold
+              text-white
+            "
+          >
+            Status
+          </h3>
+
+          <div className="flex gap-8">
+            <label className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={isAlive}
+                onChange={(e) =>
+                  setIsAlive(
+                    e.target.checked
+                  )
+                }
+              />
+
+              Alive
+            </label>
+
+            <label className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={
+                  isRootAncestor
+                }
+                onChange={(e) =>
+                  setIsRootAncestor(
+                    e.target.checked
+                  )
+                }
+              />
+
+              Root Ancestor
+            </label>
+          </div>
+        </section>
+
+        <button
+          type="submit"
           className="
             w-full
-            p-3
-            rounded-lg
-            bg-zinc-900
-          "
-        />
-      </div>
-
-      <div>
-        <label className="block mb-2">
-          Gender
-        </label>
-
-        <select
-          value={gender}
-          onChange={(e) =>
-            setGender(e.target.value)
-          }
-          className="
-            w-full
-            p-3
-            rounded-lg
-            bg-zinc-900
+            rounded-2xl
+            bg-white
+            py-4
+            text-lg
+            font-semibold
+            text-black
+            transition
+            hover:opacity-90
           "
         >
-          <option value="MALE">
-            Male
-          </option>
-
-          <option value="FEMALE">
-            Female
-          </option>
-
-          <option value="OTHER">
-            Other
-          </option>
-        </select>
-      </div>
-
-      <div>
-        <label className="block mb-2">
-          Birth Year / Date
-        </label>
-
-        <input
-          type="text"
-          placeholder="1940 or 1940-03"
-          value={birthDisplay}
-          onChange={(e) =>
-            setBirthDisplay(
-              e.target.value
-            )
-          }
-          className="
-            w-full
-            p-3
-            rounded-lg
-            bg-zinc-900
-          "
-        />
-      </div>
-
-      <div>
-        <label className="block mb-2">
-          Death Year / Date
-        </label>
-
-        <input
-          type="text"
-          placeholder="2015"
-          value={deathDisplay}
-          onChange={(e) =>
-            setDeathDisplay(
-              e.target.value
-            )
-          }
-          className="
-            w-full
-            p-3
-            rounded-lg
-            bg-zinc-900
-          "
-        />
-      </div>
-
-      <div>
-        <label className="block mb-2">
-          Bio
-        </label>
-
-        <textarea
-          value={bio}
-          onChange={(e) =>
-            setBio(e.target.value)
-          }
-          rows={4}
-          className="
-            w-full
-            p-3
-            rounded-lg
-            bg-zinc-900
-          "
-        />
-      </div>
-
-      <div>
-        <label className="block mb-2">
-          Profile Image
-        </label>
-
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            const file =
-              e.target.files?.[0];
-
-            if (file) {
-              handleImageUpload(
-                file
-              );
-            }
-          }}
-          className="
-            block
-            w-full
-            text-sm
-          "
-        />
-
-        {isUploading && (
-          <p className="mt-2 text-zinc-400">
-            Uploading image...
-          </p>
-        )}
-
-        {profileImageUrl && (
-          <img
-            src={profileImageUrl}
-            alt="Preview"
-            className="
-              mt-4
-              w-24
-              h-24
-              rounded-full
-              object-cover
-              border
-              border-zinc-700
-            "
-          />
-        )}
-      </div>
-
-      <div className="space-y-5">
-        <div>
-          <label className="block mb-2">
-            Father
-          </label>
-
-          <Select className="text-black"
-            options={people}
-            value={
-              people.find(
-                (p) => p.value === fatherId
-              ) || null
-            }
-            onChange={(option) =>
-              setFatherId(
-                (option as PersonOption | null)
-                  ?.value || null
-              )
-            }
-            isClearable
-            placeholder="Search father..."
-          />
-        </div>
-
-        <div>
-          <label className="block mb-2">
-            Mother
-          </label>
-
-          <Select className="text-black"
-            options={people}
-            value={
-              people.find(
-                (p) => p.value === motherId
-              ) || null
-            }
-            onChange={(option) =>
-              setMotherId(
-                (option as PersonOption | null)
-                  ?.value || null
-              )
-            }
-            isClearable
-            placeholder="Search mother..."
-          />
-        </div>
-
-        <div>
-          <label className="block mb-2">
-            Spouse
-          </label>
-
-          <Select className="text-black"
-            options={people}
-            value={
-              people.find(
-                (p) => p.value === spouseId
-              ) || null
-            }
-            onChange={(option) =>
-              setSpouseId(
-                (option as PersonOption | null)
-                  ?.value || null
-              )
-            }
-            isClearable
-            placeholder="Search spouse..."
-          />
-        </div>
-      </div>
-
-      <div className="flex gap-6">
-        <label className="flex gap-2">
-          <input
-            type="checkbox"
-            checked={isAlive}
-            onChange={(e) =>
-              setIsAlive(
-                e.target.checked
-              )
-            }
-          />
-
-          Alive
-        </label>
-
-        <label className="flex gap-2">
-          <input
-            type="checkbox"
-            checked={isRootAncestor}
-            onChange={(e) =>
-              setIsRootAncestor(
-                e.target.checked
-              )
-            }
-          />
-
-          Root Ancestor
-        </label>
-      </div>
-
-      <button
-        type="submit"
-        className="
-          bg-white
-          text-black
-          px-5
-          py-3
-          rounded-lg
-        "
-      >
-        Save Person
-      </button>
-    </form>
+          {initialData?.id
+            ? "Update Person"
+            : "Save Person"}
+        </button>
+      </form>
+    </div>
   );
 }
