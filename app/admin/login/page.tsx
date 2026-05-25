@@ -45,38 +45,98 @@ export default function LoginPage() {
     <main
       className="
         min-h-screen
+        bg-black
         flex
         items-center
         justify-center
+        px-4
+        relative
       "
     >
+      {/* BACK BUTTON */}
+      <div
+        className="
+          absolute
+          top-6
+          left-6
+        "
+      >
+        <button
+          onClick={() =>
+            router.push("/tree")
+          }
+          className="
+            rounded-xl
+            border
+            border-zinc-700
+            bg-zinc-900
+            px-4
+            py-2
+            text-sm
+            text-zinc-300
+            transition
+            hover:bg-zinc-800
+            hover:border-zinc-500
+          "
+        >
+          ← Family Tree
+        </button>
+      </div>
+
       <form
         onSubmit={handleLogin}
         className="
           bg-zinc-900
+          border
+          border-zinc-800
           p-8
-          rounded-xl
+          rounded-3xl
           w-full
           max-w-md
-          space-y-4
+          space-y-5
+          shadow-2xl
         "
       >
-        <h1 className="text-2xl font-bold">
-          Admin Login
-        </h1>
+        <div>
+          <h1
+            className="
+              text-3xl
+              font-bold
+              text-white
+            "
+          >
+            Admin Login
+          </h1>
+
+          <p
+            className="
+              text-zinc-400
+              mt-1
+            "
+          >
+            Sign in to manage
+            the family tree
+          </p>
+        </div>
 
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) =>
-            setEmail(e.target.value)
+            setEmail(
+              e.target.value
+            )
           }
           className="
             w-full
             p-3
-            rounded-lg
+            rounded-xl
             bg-zinc-800
+            border
+            border-zinc-700
+            outline-none
+            focus:border-zinc-500
           "
         />
 
@@ -92,13 +152,22 @@ export default function LoginPage() {
           className="
             w-full
             p-3
-            rounded-lg
+            rounded-xl
             bg-zinc-800
+            border
+            border-zinc-700
+            outline-none
+            focus:border-zinc-500
           "
         />
 
         {error && (
-          <p className="text-red-500">
+          <p
+            className="
+              text-red-400
+              text-sm
+            "
+          >
             {error}
           </p>
         )}
@@ -108,10 +177,14 @@ export default function LoginPage() {
           disabled={loading}
           className="
             w-full
+            rounded-xl
             bg-white
             text-black
             p-3
-            rounded-lg
+            font-medium
+            transition
+            hover:opacity-90
+            disabled:opacity-50
           "
         >
           {loading
