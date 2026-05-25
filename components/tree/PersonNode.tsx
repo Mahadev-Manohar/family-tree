@@ -60,7 +60,7 @@ function statusColor(
 ) {
   return isAlive
     ? "text-emerald-400"
-    : "text-zinc-500";
+    : "text-zinc-400";
 }
 
 export default function PersonNode({
@@ -71,18 +71,42 @@ export default function PersonNode({
     <div
       className="
         relative
-        min-w-[380px]
-        rounded-2xl
+        min-w-[420px]
+        rounded-3xl
         border
-        border-zinc-800
-        bg-zinc-950
-        px-6
-        py-5
-        shadow-sm
-        transition
-        hover:border-zinc-700
+        border-zinc-700
+        bg-zinc-900
+        px-5
+        py-6
+        shadow-xl
+        transition-all
+        duration-200
+        hover:border-zinc-500
+        hover:shadow-2xl
+        hover:-translate-y-0.5
       "
     >
+
+      <div
+        className={`
+          absolute
+          top-0
+          left-0
+          h-1
+          w-full
+          rounded-t-3xl
+          ${
+            data.gender ===
+            "MALE"
+              ? "bg-sky-600/70"
+              : data.gender ===
+                  "FEMALE"
+                ? "bg-rose-600/70"
+                : "bg-zinc-500"
+          }
+        `}
+      />
+
       <Handle
         type="target"
         position={Position.Top}
@@ -174,13 +198,13 @@ export default function PersonNode({
                   text-xs
                   uppercase
                   tracking-wide
-                  text-zinc-500
+                  text-zinc-400
                 "
               >
                 Birth
               </p>
 
-              <p className="text-zinc-200 text-sm">
+              <p className="text-zinc-200 text-base">
                 {data.birthDisplay ??
                   "Unknown"}
               </p>
@@ -188,7 +212,7 @@ export default function PersonNode({
 
             <p
               className={`
-                text-sm
+                text-base
                 font-medium
                 ${statusColor(
                   data.isAlive
@@ -209,7 +233,7 @@ export default function PersonNode({
               className="
                 mx-5
                 w-px
-                bg-zinc-800
+                bg-zinc-700
               "
             />
 
@@ -302,13 +326,13 @@ export default function PersonNode({
                       text-xs
                       uppercase
                       tracking-wide
-                      text-zinc-500
+                      text-zinc-400
                     "
                   >
                     Birth
                   </p>
 
-                  <p className="text-zinc-200 text-sm">
+                  <p className="text-zinc-200 text-base">
                     {data.spouse
                       .birthDisplay ??
                       "Unknown"}
@@ -317,7 +341,7 @@ export default function PersonNode({
 
                 <p
                   className={`
-                    text-sm
+                    text-base
                     font-medium
                     ${statusColor(
                       data.spouse
