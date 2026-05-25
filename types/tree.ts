@@ -26,6 +26,10 @@ export type TreeNode = {
 
     isAlive?: boolean;
 
+    profileImageUrl?:
+    | string
+    | null;
+
     birthDisplay?:
       | string
       | null;

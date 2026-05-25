@@ -7,6 +7,11 @@ type Person = {
   id: string;
   fullName: string;
   gender: string;
+
+  profileImageUrl?:
+    | string
+    | null;
+
   birthDisplay?: string | null;
   deathDisplay?: string | null;
   bio?: string | null;
@@ -73,16 +78,98 @@ export default function PersonDetailsModal({
             z-50
           "
         >
-          <Dialog.Title
+          <div
             className="
-              text-2xl
-              font-bold
-              text-white
-              mb-5
+              flex
+              items-center
+              gap-5
+              mb-8
             "
           >
-            {person.fullName}
-          </Dialog.Title>
+            {person.profileImageUrl ? (
+              <img
+                src={
+                  person.profileImageUrl
+                }
+                alt={
+                  person.fullName
+                }
+                className="
+                  w-24
+                  h-24
+                  rounded-full
+                  object-cover
+                  border-2
+                  border-zinc-700
+                "
+              />
+            ) : (
+              <div
+                className="
+                  w-24
+                  h-24
+                  rounded-full
+                  flex
+                  items-center
+                  justify-center
+                  bg-zinc-800
+                  text-white
+                  text-2xl
+                  font-bold
+                "
+              >
+                {person.fullName
+                  .split(" ")
+                  .map(
+                    (name) => name[0]
+                  )
+                  .slice(0, 2)
+                  .join("")}
+              </div>
+            )}
+
+            <div>
+              <Dialog.Title
+                className="
+                  text-3xl
+                  font-bold
+                  text-white
+                "
+              >
+                {person.fullName}
+              </Dialog.Title>
+
+              <p
+                className="
+                  text-zinc-400
+                  mt-1
+                "
+              >
+                {person.gender}
+              </p>
+
+              <span
+                className={`
+                  inline-flex
+                  mt-3
+                  rounded-full
+                  px-3
+                  py-1
+                  text-sm
+                  font-medium
+                  ${
+                    person.isAlive
+                      ? "bg-emerald-500/15 text-emerald-400"
+                      : "bg-red-500/15 text-red-400"
+                  }
+                `}
+              >
+                {person.isAlive
+                  ? "Living"
+                  : "Deceased"}
+              </span>
+            </div>
+          </div>
 
           <div className="space-y-4">
             <InfoRow
@@ -103,15 +190,6 @@ export default function PersonDetailsModal({
               value={
                 person.deathDisplay ??
                 "—"
-              }
-            />
-
-            <InfoRow
-              label="Status"
-              value={
-                person.isAlive
-                  ? "Living"
-                  : "Deceased"
               }
             />
 

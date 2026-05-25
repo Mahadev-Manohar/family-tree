@@ -48,6 +48,9 @@ export function treeToFlow(
         birthDisplay:
             node.birthDisplay,
 
+        profileImageUrl:
+          node.profileImageUrl,
+
         spouse:
             node.spouse,
         },

@@ -236,6 +236,8 @@ export async function GET(
         person.fullName,
       gender:
         person.gender,
+       profileImageUrl:
+        person.profileImageUrl,
       birthDisplay:
         person.birthDisplay,
       deathDisplay:

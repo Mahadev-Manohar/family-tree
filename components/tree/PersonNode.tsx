@@ -11,6 +11,10 @@ type Props = {
     gender?: string;
     isAlive?: boolean;
 
+    profileImageUrl?:
+    | string
+    | null;
+
     birthDisplay?:
       | string
       | null;
@@ -21,12 +25,13 @@ type Props = {
 
     spouse?: {
       id: string;
-
       fullName: string;
-
       gender?: string;
-
       isAlive?: boolean;
+
+      profileImageUrl?:
+        | string
+        | null;
 
       birthDisplay?:
         | string
@@ -71,8 +76,8 @@ export default function PersonNode({
         border
         border-zinc-800
         bg-zinc-950
-        px-5
-        py-4
+        px-6
+        py-5
         shadow-sm
         transition
         hover:border-zinc-700
@@ -106,22 +111,55 @@ export default function PersonNode({
           }}
         >
           <div className="flex items-center gap-2 mb-3">
-            <div
-              className={`
-                w-2.5
-                h-2.5
-                rounded-full
-                ${genderDot(
-                  data.gender
-                )}
-              `}
-            />
+            {data.profileImageUrl ? (
+              <img
+                src={
+                  data.profileImageUrl
+                }
+                alt={
+                  data.fullName
+                }
+                className="
+                  w-12
+                  h-12
+                  rounded-full
+                  object-cover
+                  border
+                  border-zinc-700
+                "
+              />
+            ) : (
+              <div
+                className={`
+                  w-12
+                  h-12
+                  rounded-full
+                  flex
+                  items-center
+                  justify-center
+                  text-xs
+                  font-semibold
+                  text-white
+                  ${genderDot(
+                    data.gender
+                  )}
+                `}
+              >
+                {data.fullName
+                  .split(" ")
+                  .map((name) =>
+                    name[0]
+                  )
+                  .slice(0, 2)
+                  .join("")}
+              </div>
+            )}
 
             <h3
               className="
                 text-white
                 font-semibold
-                text-lg
+                text-base
                 leading-none
               "
             >
@@ -194,23 +232,59 @@ export default function PersonNode({
               }}
             >
               <div className="flex items-center gap-2 mb-3">
-                <div
-                  className={`
-                    w-2.5
-                    h-2.5
-                    rounded-full
-                    ${genderDot(
+                {data.spouse
+                  ?.profileImageUrl ? (
+                  <img
+                    src={
                       data.spouse
-                        .gender
-                    )}
-                  `}
-                />
+                        .profileImageUrl
+                    }
+                    alt={
+                      data.spouse
+                        .fullName
+                    }
+                    className="
+                      w-12
+                      h-12
+                      rounded-full
+                      object-cover
+                      border
+                      border-zinc-700
+                    "
+                  />
+                ) : (
+                  <div
+                    className={`
+                      w-12
+                      h-12
+                      rounded-full
+                      flex
+                      items-center
+                      justify-center
+                      text-xs
+                      font-semibold
+                      text-white
+                      ${genderDot(
+                        data.spouse
+                          ?.gender
+                      )}
+                    `}
+                  >
+                    {data.spouse?.fullName
+                      .split(" ")
+                      .map((name) =>
+                        name[0]
+                      )
+                      .slice(0, 2)
+                      .join("")}
+                  </div>
+                )}
 
                 <h3
                   className="
                     text-white
                     font-semibold
-                    text-lg
+                    text-base
                     leading-none
                   "
                 >

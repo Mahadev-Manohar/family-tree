@@ -83,6 +83,9 @@ export function buildTree(
 
             isAlive:
                 spouse.isAlive,
+
+            profileImageUrl:
+              spouse.profileImageUrl,
             }
         : null,
 
