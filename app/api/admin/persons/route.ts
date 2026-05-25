@@ -28,6 +28,10 @@ export async function POST(
           bio:
             body.bio || null,
 
+          profileImageUrl:
+            body.profileImageUrl ||
+            null,
+
           isAlive:
             body.isAlive,
 

@@ -18,6 +18,21 @@ export default async function EditPersonPage({
       where: {
         id,
       },
+
+      select: {
+        id: true,
+        fullName: true,
+        gender: true,
+        birthDisplay: true,
+        deathDisplay: true,
+        bio: true,
+        profileImageUrl: true,
+        isAlive: true,
+        isRootAncestor: true,
+        fatherId: true,
+        motherId: true,
+        spouseId: true,
+      },
     });
 
   if (!person) {

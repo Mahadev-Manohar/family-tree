@@ -79,6 +79,10 @@ export async function PUT(
           bio:
             body.bio || null,
 
+          profileImageUrl:
+            body.profileImageUrl ||
+            null,
+
           isAlive:
             body.isAlive,
 

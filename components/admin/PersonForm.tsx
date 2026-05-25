@@ -1,10 +1,8 @@
 "use client";
 
 import { PersonOption } from "@/types/person";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
 import dynamic from "next/dynamic";
 
 const Select = dynamic(
@@ -24,8 +22,10 @@ type PersonFormProps = {
     birthDisplay?: string | null;
     deathDisplay?: string | null;
     bio?: string | null;
+    profileImageUrl?: string | null;
     isAlive: boolean;
     isRootAncestor: boolean;
+
 
     fatherId?: string | null;
     motherId?: string | null;
@@ -65,6 +65,19 @@ export default function PersonForm({
       initialData?.bio || ""
     );
 
+  const [
+    profileImageUrl,
+    setProfileImageUrl,
+  ] = useState(
+    initialData?.profileImageUrl ||
+      ""
+  );
+
+  const [
+    isUploading,
+    setIsUploading,
+  ] = useState(false);
+
   const [isAlive, setIsAlive] =
     useState(
       initialData?.isAlive ?? true
@@ -89,6 +102,46 @@ export default function PersonForm({
     useState<string | null>(
       initialData?.spouseId || null
     );
+
+  async function handleImageUpload(
+    file: File
+  ) {
+    try {
+      setIsUploading(true);
+
+      const formData =
+        new FormData();
+
+      formData.append(
+        "file",
+        file
+      );
+
+      const response =
+        await fetch(
+          "/api/upload-image",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+      const data =
+        await response.json();
+
+      setProfileImageUrl(
+        data.imageUrl
+      );
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        "Failed to upload image"
+      );
+    } finally {
+      setIsUploading(false);
+    }
+  }
 
   async function handleSubmit(
     e: React.FormEvent
@@ -120,6 +173,7 @@ export default function PersonForm({
               birthDisplay,
               deathDisplay,
               bio,
+              profileImageUrl,
               isAlive,
               isRootAncestor,
               fatherId,
@@ -143,6 +197,7 @@ export default function PersonForm({
         setBirthDisplay("");
         setDeathDisplay("");
         setBio("");
+        setProfileImageUrl("");
         setIsAlive(true);
         setIsRootAncestor(false);
       } catch (error) {
@@ -274,6 +329,54 @@ export default function PersonForm({
             bg-zinc-900
           "
         />
+      </div>
+
+      <div>
+        <label className="block mb-2">
+          Profile Image
+        </label>
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file =
+              e.target.files?.[0];
+
+            if (file) {
+              handleImageUpload(
+                file
+              );
+            }
+          }}
+          className="
+            block
+            w-full
+            text-sm
+          "
+        />
+
+        {isUploading && (
+          <p className="mt-2 text-zinc-400">
+            Uploading image...
+          </p>
+        )}
+
+        {profileImageUrl && (
+          <img
+            src={profileImageUrl}
+            alt="Preview"
+            className="
+              mt-4
+              w-24
+              h-24
+              rounded-full
+              object-cover
+              border
+              border-zinc-700
+            "
+          />
+        )}
       </div>
 
       <div className="space-y-5">
