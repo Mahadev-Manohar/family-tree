@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import * as Dialog from
   "@radix-ui/react-dialog";
 
@@ -322,21 +323,38 @@ export default function PersonDetailsModal({
             )}
           </div>
 
-          <Dialog.Close
-            className="
-              mt-10
-              w-full
-              rounded-2xl
-              bg-zinc-800
-              py-4
-              text-white
-              font-medium
-              transition
-              hover:bg-zinc-700
-            "
-          >
-            Close
-          </Dialog.Close>
+          <div className="mt-8 flex gap-3">
+            <Link
+              href={`/admin/persons/${person.id}/edit`}
+              className="
+                flex-1
+                rounded-xl
+                bg-blue-600
+                py-3
+                text-center
+                text-white
+                font-medium
+                transition
+                hover:bg-blue-500
+              "
+            >
+              Edit Person
+            </Link>
+
+            <Dialog.Close
+              className="
+                flex-1
+                rounded-xl
+                bg-zinc-800
+                py-3
+                text-white
+                font-medium
+                hover:bg-zinc-700
+              "
+            >
+              Close
+            </Dialog.Close>
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
