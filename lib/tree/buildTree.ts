@@ -29,21 +29,13 @@ export function buildTree(
       );
 
     const children =
-        people.filter((child) => {
-            // primary parent = father
-            if (child.fatherId) {
-            return (
-                child.fatherId ===
-                person.id
-            );
-            }
-
-            // fallback = mother
-            return (
-            child.motherId ===
+      people.filter(
+        (child) =>
+          child.fatherId ===
+            person.id ||
+          child.motherId ===
             person.id
-            );
-        });
+      );
 
     return {
       id: person.id,
