@@ -69,13 +69,13 @@ export default function LoginPage() {
             rounded-xl
             border
             border-zinc-700
-            bg-zinc-900
+            bg-zinc-200
             px-4
             py-2
             text-sm
-            text-zinc-300
+            text-zinc-900
             transition
-            hover:bg-zinc-800
+            hover:bg-zinc-400
             hover:border-zinc-500
           "
         >
