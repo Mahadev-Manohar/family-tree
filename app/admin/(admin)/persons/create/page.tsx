@@ -1,3 +1,5 @@
+export const dynamic =
+  "force-dynamic";
 import PersonForm from "@/components/admin/PersonForm";
 import { prisma } from "@/lib/db/prisma";
 
