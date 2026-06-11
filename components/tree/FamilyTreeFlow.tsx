@@ -45,17 +45,9 @@ export default function FamilyTreeFlow({
     setOpen,
   ] = useState(false);
 
-  async function handleNodeClick(
-    personId: string
+  function handleNodeClick(
+    person: any
   ) {
-    const res =
-      await fetch(
-        `/api/admin/persons/${personId}`
-      );
-
-    const person =
-      await res.json();
-
     setSelectedPerson(
       person
     );
@@ -71,7 +63,10 @@ export default function FamilyTreeFlow({
       ...node.data,
 
       onPersonClick:
-        handleNodeClick,
+        () =>
+          handleNodeClick(
+            node.data
+          ),
     },
   }));
 

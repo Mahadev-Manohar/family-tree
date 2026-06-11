@@ -52,7 +52,8 @@ export function buildTree(
       deathDisplay:
         person.deathDisplay,
 
-      bio: person.bio,
+      bio:
+        person.bio,
 
       isAlive:
         person.isAlive,
@@ -65,21 +66,28 @@ export function buildTree(
             id: spouse.id,
 
             fullName:
-                spouse.fullName,
+              spouse.fullName,
 
             birthDisplay:
-                spouse.birthDisplay,
+              spouse.birthDisplay,
 
             gender:
-                spouse.gender,
+              spouse.gender,
 
             isAlive:
-                spouse.isAlive,
-
-            profileImageUrl:
-              spouse.profileImageUrl,
-            }
+              spouse.isAlive,
+          }
         : null,
+
+      modalChildren:
+        children.map(
+          (child) => ({
+            id: child.id,
+
+            fullName:
+              child.fullName,
+          })
+        ),
 
       children:
         children.map(

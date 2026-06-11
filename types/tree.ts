@@ -5,11 +5,17 @@ export type TreeNode = {
 
   gender: string;
 
-  birthDisplay?: string | null;
+  birthDisplay?:
+    | string
+    | null;
 
-  deathDisplay?: string | null;
+  deathDisplay?:
+    | string
+    | null;
 
-  bio?: string | null;
+  bio?:
+    | string
+    | null;
 
   isAlive: boolean;
 
@@ -24,16 +30,18 @@ export type TreeNode = {
 
     gender?: string;
 
-    isAlive?: boolean;
-
-    profileImageUrl?:
-    | string
-    | null;
-
     birthDisplay?:
       | string
       | null;
+
+    isAlive?: boolean;
   } | null;
 
-  children: TreeNode[];
+  modalChildren?: {
+    id: string;
+    fullName: string;
+  }[];
+
+  children:
+    TreeNode[];
 };

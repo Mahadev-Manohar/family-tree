@@ -48,6 +48,15 @@ export function treeToFlow(
         birthDisplay:
             node.birthDisplay,
 
+        deathDisplay:
+          node.deathDisplay,
+
+        bio:
+          node.bio,
+
+        children:
+          node.modalChildren,
+
         profileImageUrl:
           node.profileImageUrl,
 
