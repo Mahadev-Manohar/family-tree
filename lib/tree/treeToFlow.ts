@@ -35,34 +35,7 @@ export function treeToFlow(
     nodes.push({
       id: node.id,
 
-      data: {
-        fullName:
-            node.fullName,
-
-        gender:
-            node.gender,
-
-        isAlive:
-            node.isAlive,
-
-        birthDisplay:
-            node.birthDisplay,
-
-        deathDisplay:
-          node.deathDisplay,
-
-        bio:
-          node.bio,
-
-        children:
-          node.modalChildren,
-
-        profileImageUrl:
-          node.profileImageUrl,
-
-        spouse:
-            node.spouse,
-        },
+      data: node,
 
       type: "personNode",
 

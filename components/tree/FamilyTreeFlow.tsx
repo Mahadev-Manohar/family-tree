@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  useMemo,
   useState,
 } from "react";
 
@@ -45,9 +46,59 @@ export default function FamilyTreeFlow({
     setOpen,
   ] = useState(false);
 
+  const personMap =
+    useMemo(() => {
+      const map =
+        new Map();
+
+      function addPerson(
+        person: any
+      ) {
+        if (!person) return;
+
+        map.set(
+          person.id,
+          person
+        );
+
+        if (
+          person.spouse
+        ) {
+          map.set(
+            person.spouse.id,
+            person.spouse
+          );
+        }
+
+        if (
+          person.children
+        ) {
+          person.children.forEach(
+            addPerson
+          );
+        }
+      }
+
+      nodes.forEach(
+        (node) =>
+          addPerson(
+            node.data
+          )
+      );
+
+      return map;
+    }, [nodes]);
+
   function handleNodeClick(
-    person: any
+    personId: string
   ) {
+    const person =
+      personMap.get(
+        personId
+      );
+
+    if (!person) return;
+
     setSelectedPerson(
       person
     );
@@ -63,10 +114,7 @@ export default function FamilyTreeFlow({
       ...node.data,
 
       onPersonClick:
-        () =>
-          handleNodeClick(
-            node.data
-          ),
+        handleNodeClick,
     },
   }));
 

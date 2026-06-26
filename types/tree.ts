@@ -28,13 +28,27 @@ export type TreeNode = {
 
     fullName: string;
 
-    gender?: string;
+    gender: string;
 
-    birthDisplay?:
-      | string
-      | null;
+    birthDisplay?: string | null;
 
-    isAlive?: boolean;
+    deathDisplay?: string | null;
+
+    bio?: string | null;
+
+    isAlive: boolean;
+
+    profileImageUrl?: string | null;
+
+    spouse?: {
+      id: string;
+      fullName: string;
+    } | null;
+
+    children: {
+      id: string;
+      fullName: string;
+    }[];
   } | null;
 
   modalChildren?: {

@@ -65,20 +65,39 @@ export function buildTree(
         ? {
             id: spouse.id,
 
-            fullName:
-              spouse.fullName,
+            fullName: spouse.fullName,
 
-            birthDisplay:
-              spouse.birthDisplay,
+            gender: spouse.gender,
 
-            gender:
-              spouse.gender,
+            birthDisplay: spouse.birthDisplay,
 
-            isAlive:
-              spouse.isAlive,
+            deathDisplay: spouse.deathDisplay,
+
+            bio: spouse.bio,
+
+            isAlive: spouse.isAlive,
+
+            profileImageUrl:
+              spouse.profileImageUrl,
+
+            spouse: {
+              id: person.id,
+              fullName: person.fullName,
+            },
+
+            children: people
+              .filter(
+                (child) =>
+                  child.fatherId === spouse.id ||
+                  child.motherId === spouse.id
+              )
+              .map((child) => ({
+                id: child.id,
+                fullName: child.fullName,
+              })),
           }
         : null,
-
+  
       modalChildren:
         children.map(
           (child) => ({
