@@ -102,11 +102,10 @@ export default async function TreePage() {
               font-semibold
               text-black
               backdrop-blur-md
-              transition-all
+              transition-colors
               duration-200
               hover:border-zinc-500
               hover:bg-zinc-200
-              hover:scale-[1.02]
               shadow-lg
             "
           >
