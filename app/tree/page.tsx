@@ -70,8 +70,9 @@ export default async function TreePage() {
           <div className="pointer-events-auto">
             <h1
               className="
-                text-2xl
+                text-3xl
                 font-bold
+                leading-none
                 text-white
               "
             >
@@ -80,7 +81,9 @@ export default async function TreePage() {
 
             <p
               className="
+                mt-2
                 text-sm
+                font-medium
                 text-zinc-400
               "
             >
@@ -91,22 +94,29 @@ export default async function TreePage() {
           <Link
             href="/admin/login"
             className="
+              inline-flex
+              items-center
+              justify-center
               pointer-events-auto
-              rounded-2xl
+              rounded-xl
               border
-              border-zinc-700
-              bg-white
+              border-cyan-200
+              bg-cyan-300
               px-5
-              py-3.5
-              text-base
-              font-semibold
-              text-black
-              backdrop-blur-md
+              py-3
+              text-sm
+              font-bold
+              text-zinc-950
+              shadow-lg
+              shadow-black/30
               transition-colors
               duration-200
-              hover:border-zinc-500
-              hover:bg-zinc-200
-              shadow-lg
+              hover:border-cyan-100
+              hover:bg-cyan-200
+              focus-visible:outline
+              focus-visible:outline-2
+              focus-visible:outline-offset-4
+              focus-visible:outline-cyan-300
             "
           >
             Admin Login

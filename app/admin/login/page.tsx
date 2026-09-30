@@ -66,20 +66,55 @@ export default function LoginPage() {
             router.push("/tree")
           }
           className="
-            rounded-xl
+            group
+            inline-flex
+            items-center
+            gap-3
+            min-h-11
+            rounded-full
             border
-            border-zinc-700
-            bg-zinc-200
-            px-4
-            py-2
+            border-white/15
+            bg-zinc-950/90
+            pl-2
+            pr-5
             text-sm
-            text-zinc-900
-            transition
-            hover:bg-zinc-400
-            hover:border-zinc-500
+            font-semibold
+            text-zinc-100
+            shadow-lg
+            shadow-black/30
+            backdrop-blur
+            transition-colors
+            duration-200
+            hover:border-cyan-300/50
+            hover:bg-zinc-900
+            focus-visible:outline
+            focus-visible:outline-2
+            focus-visible:outline-offset-4
+            focus-visible:outline-cyan-300
           "
         >
-          ← Family Tree
+          <span
+            className="
+              grid
+              size-8
+              shrink-0
+              place-items-center
+              rounded-full
+              border
+              border-cyan-300/25
+              bg-cyan-300/10
+              text-lg
+              leading-none
+              text-cyan-300
+              transition-colors
+              duration-200
+              group-hover:bg-cyan-300/20
+            "
+            aria-hidden="true"
+          >
+            ←
+          </span>
+          Family Tree
         </button>
       </div>
 
